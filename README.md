@@ -37,7 +37,7 @@ Realice el diagrama entidad-relacion para representar un modelo de datos adecuad
 El diagrama de entidades es el siguiente
 
 <p align="center">
-  <img width="459" alt="image" src="https://user-images.githubusercontent.com/81629492/198703962-dd1f4135-aebd-4d7b-8a3a-1d39ec96947e.png">
+  <img width="459" alt="image" src="https://i.postimg.cc/sxjLjh4S/image.png">
 </p>
 
 ----
@@ -45,7 +45,7 @@ El diagrama de entidades es el siguiente
 Y el diagrama de relaciones es el siguiente
 
 <p align="center">
-  <img align="center" width="397" alt="image" src="https://user-images.githubusercontent.com/81629492/198704232-92aa28ca-e83b-4341-bd2f-e70c32dc07ff.png">
+  <img align="center" width="397" alt="image" src="https://i.postimg.cc/CLYh8PmH/image.png">
 </p>
 
 
