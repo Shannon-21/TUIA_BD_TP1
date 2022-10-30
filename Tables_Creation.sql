@@ -18,19 +18,19 @@ CREATE TABLE Genero (
 
 CREATE TABLE Pelicula (
 	ID_Pelicula int PRIMARY KEY IDENTITY NOT NULL,
-	Nombre varchar(50),
-	Subtitulada BIT,
-	APT BIT,
 	ID_Genero int FOREIGN KEY REFERENCES Genero(ID_Genero),
+	Nombre varchar(50),
+	Subtitulos BIT,
+	APT BIT,
 );
 
 
 CREATE TABLE Funciones (
 	ID_Funcion int PRIMARY KEY IDENTITY NOT NULL,
 	ID_Pelicula int FOREIGN KEY REFERENCES Pelicula(ID_Pelicula),
+	ID_Sala int FOREIGN KEY REFERENCES Sala(ID_Sala),
 	Fecha date,
 	Horario time,
-	ID_Sala int FOREIGN KEY REFERENCES Sala(ID_Sala),
 );
 
 
@@ -51,8 +51,8 @@ CREATE TABLE Butaca (
 
 CREATE TABLE Entrada (
 	ID_Entrada int PRIMARY KEY IDENTITY NOT NULL,
-	Precio int,
-	DNI int FOREIGN KEY REFERENCES Usuario(DNI),
 	ID_Butaca int FOREIGN KEY REFERENCES Butaca(ID_Butaca),
 	ID_Funcion int FOREIGN KEY REFERENCES Funciones(ID_Funcion),
+	DNI int FOREIGN KEY REFERENCES Usuario(DNI),
+	Precio int,
 );
