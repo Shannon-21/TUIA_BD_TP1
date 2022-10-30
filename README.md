@@ -36,18 +36,13 @@ Realice el diagrama entidad-relacion para representar un modelo de datos adecuad
 
 El diagrama de entidades es el siguiente
 
-<p align="center">
-  <img width="459" alt="image" src="https://i.postimg.cc/sxjLjh4S/image.png">
-</p>
+![image](https://user-images.githubusercontent.com/81629492/198884976-b9496e6c-de7b-4093-aecb-d58d2f66b251.png)
 
 ----
 
 Y el diagrama de relaciones es el siguiente
 
-<p align="center">
-  <img align="center" width="397" alt="image" src="https://i.postimg.cc/CLYh8PmH/image.png">
-</p>
-
+![image](https://user-images.githubusercontent.com/81629492/198885018-34216a9d-9b32-4311-bbdf-1de21844ea5f.png)
 
 Link al archivo del diagrama: https://app.diagrams.net/#G1llJklRTFGxUa5fOtU_CFANpiyDLjFv7l
 
