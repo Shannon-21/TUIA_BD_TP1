@@ -1,15 +1,11 @@
 CREATE TABLE Sucursal (
 	ID_Sucursal int PRIMARY KEY IDENTITY NOT NULL,
 	Ubicacion VARCHAR(50),
-	Cantidad_Salas int,
-	Funciones int,
 );
 
 
 CREATE TABLE Sala (
 	ID_Sala int PRIMARY KEY IDENTITY NOT NULL,
-	Cantidad_Butacas int,
-	Funciones int,
 	ID_Sucursal int FOREIGN KEY REFERENCES Sucursal(ID_Sucursal),
 );
 
@@ -50,7 +46,6 @@ CREATE TABLE Butaca (
 	ID_Sala int FOREIGN KEY REFERENCES Sala(ID_Sala),
 	Columna varchar(1),
 	Fila int,
-	Estado BIT,
 );
 
 
