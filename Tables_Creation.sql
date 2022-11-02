@@ -16,7 +16,7 @@
 
 	CREATE TABLE Sucursal (
 		ID_Sucursal int PRIMARY KEY NOT NULL,
-		Ubicacion VARCHAR(20),
+		Ubicacion varchar(20),
 	);
 
 
@@ -72,3 +72,4 @@
 		DNI int FOREIGN KEY REFERENCES Usuario(DNI),
 		Precio money,
 	);
+
