@@ -40,13 +40,13 @@
 
   Realice el diagrama entidad-relacion para representar un modelo de datos adecuado al problema planteado
 
-  El diagrama de entidades es el siguiente
+  El diagrama de entidades es el siguiente:
 
-  ![image](https://user-images.githubusercontent.com/81629492/198884976-b9496e6c-de7b-4093-aecb-d58d2f66b251.png)
+  ![image](https://user-images.githubusercontent.com/81629492/199556281-75c6bd49-d5f2-4a54-8adf-9a3342fc6ab7.png)
 
   ----
 
-  Y el diagrama de relaciones es el siguiente
+  Y el diagrama de relaciones es el siguiente:
 
   ![image](https://user-images.githubusercontent.com/81629492/198885018-34216a9d-9b32-4311-bbdf-1de21844ea5f.png)
 
@@ -59,6 +59,8 @@
 
   Escriba las instrucciones SQL para la creacion de las tablas correspondientes al diagrama anterior.
   
+  Los comandos fueron escritos en el archivo Tables_Creation.sql
+  
 </p></details>
 
 ----
@@ -66,12 +68,16 @@
 <details><summary>Ejercicio 3</summary><p>
 
   Escriba instrucciones SQL para la insercion de datos, de modo de tener informacion sobre:
-
-  * Las 3 sucursales existentes actualmente.
-  * Al menos 3 salas por sucursal.
-  * Al menos 20 butacas por sala.
-  * Al menos 5 peliculas (una de ellas es Argentina, 1985, y otra de ellas es de genero ciencia ficcion).
-  * Al menos 5 funciones (algunas de ellas deben ocurrir entre el 24 y el 31 de octubre de2022).
+  
+  <ol type="a">
+    <li> Las 3 sucursales existentes actualmente. </li>
+    <li> Al menos 3 salas por sucursal. </li>
+    <li> Al menos 20 butacas por sala. </li>
+    <li> Al menos 5 peliculas (una de ellas es Argentina, 1985, y otra de ellas es de genero ciencia ficcion). </li>
+    <li> Al menos 5 funciones (algunas de ellas deben ocurrir entre el 24 y el 31 de octubre de2022). </li>
+  </ol>  
+  
+  Los comandod fueron escritos en el archivo Insertion_Tables.sql
 
 </p></details>
 
@@ -81,16 +87,18 @@
   Escriba consultas SQL que aporten la informacion para responder las siguientes preguntas.
   Tenga en cuenta que puede ser util agregar nuevas filas a las tablas, a modo de facilitar el
   testeo de las consultas.
-
-  * ¿Cuantas funciones hay en la sucursal La Plata (no importa si la funcion ya ocurrio o no)?
-  * ¿Cuales son las peliculas en cartelera en una fecha determinada (fije la fecha que prefiera) en la sucursal Cordoba?
-  * ¿Cuales son los horarios disponibles para ver la pelicula Argentina, 1985 en una fecha determinada (fije la fecha) en la sucursal Rosario?
-  * ¿Cuales son los horarios disponibles para ver la pelicula Argentina, 1985 en una fecha determinada (fije la fecha) para cada sucursal? 
-     Muestre estos resultados ordenados cronologicamente de forma creciente.
-  * ¿Cuales peliculas de ciencia ficcion hay en cartelera la semana del 24 de octubre de 2022 en la sucursal Rosario?
-  * ¿Cuales son las butacas vendidas para ver Argentina, 1985 en Cordoba en una funcion determinada (fije la funcion)?
-  * ¿Cuales son las butacas libres para ver Argentina, 1985 en Cordoba en una funcion determinada (fije la funcion)?
-  * ¿Cuantas peliculas por genero estan o estuvieron en cartelera en el Cine Paraiso?
+  <ol type="a">
+    <li> ¿Cuantas funciones hay en la sucursal La Plata (no importa si la funcion ya ocurrio o no)? </li>
+    <li> ¿Cuales son las peliculas en cartelera en una fecha determinada (fije la fecha que prefiera) en la sucursal Cordoba? </li>
+    <li> ¿Cuales son los horarios disponibles para ver la pelicula Argentina, 1985 en una fecha determinada (fije la fecha) en la sucursal Rosario? </li>
+    <li> ¿Cuales son los horarios disponibles para ver la pelicula Argentina, 1985 en una fecha determinada (fije la fecha) para cada sucursal?. </li>
+    <li> ¿Cuales peliculas de ciencia ficcion hay en cartelera la semana del 24 de octubre de 2022 en la sucursal Rosario.</li> 
+    <li> ¿Cuales son las butacas vendidas para ver Argentina, 1985 en Cordoba en una funcion determinada (fije la funcion)? </li> 
+    <li> ¿Cuales son las butacas libres para ver Argentina, 1985 en Cordoba en una funcion determinada (fije la funcion)? </li> 
+    <li> ¿Cuantas peliculas por genero estan o estuvieron en cartelera en el Cine Paraiso? </li> 
+  </ol>
+  
+  Las queries fueron escritas en el archivo Queries_Ejercicio4.sql
 
 </p></details>
 
@@ -100,10 +108,12 @@
 
   Suponga que, una vez creada la base de datos, se pide hacer una pequena modificacion para poder guardar informacion respecto al precio de las entradas. 
   Determine que alteraciones seria conveniente realizar en las tablas en los siguientes casos, justificando la respuesta:
-  * El precio de la entrada depende unicamente de la sucursal.
-  * El precio de la entrada depende unicamente de la pelicula.
-  * El preico de la entrada depende unicamente de la ubicacion de la butaca.
-
+  <ol type="a">
+    <li> El precio de la entrada depende unicamente de la sucursal. </li>
+    <li> El precio de la entrada depende unicamente de la pelicula. </li>
+    <li> El preico de la entrada depende unicamente de la ubicacion de la butaca. </li> 
+  </ol>
+  
 </p></details>
 
 ----
@@ -115,11 +125,13 @@
   Realice las modificaciones necesarias para que el modelo se corresponda a este nuevo requerimiento,
   y escriba consultas SQL que cumplan los siguientes requisitos:
 
-  * Determine el total recaudado por funcion.
-  * Determine el promedio recaudado por funcion para cada pelicula. 
+  <ol type="a">
+
+  <li> Determine el total recaudado por funcion. </li>
+  <li> Determine el promedio recaudado por funcion para cada pelicula.
     Es decir, si la pelicula Argentina, 1985 tuvo dos funciones, y en una recaudo 1000 pesos,
-    y en la otra recaudo 3000 pesos, el promedio recaudado por funcion para esta pelicula es 2000 pesos.
-  * Determine el porcentaje de entradas vendidas por funcion, y muestre pelicula, sucursal, hora y dia, solo para aquellas en las que se vendio menos del 50%.
-  * Determine, para cada pelicula, cual fue la funcion que mas recaudo.
+    y en la otra recaudo 3000 pesos, el promedio recaudado por funcion para esta pelicula es 2000 pesos.</li>
+  <li> Determine el porcentaje de entradas vendidas por funcion, y muestre pelicula, sucursal, hora y dia, solo para aquellas en las que se vendio menos del 50%.</li>
+  <li> Determine, para cada pelicula, cual fue la funcion que mas recaudo.</li>
 
 </p></details>
