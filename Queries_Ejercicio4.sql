@@ -71,14 +71,20 @@ USE BD1_TP1_TUIA;
 -- Ejercicio G:
 -- ¿Cuales son las butacas libres para ver Argentina, 1985 en Cordoba en una funcion determinada?
 
-   /*	NOT 
-	(
-		SELECT E.ID_Butaca AS Butacas_Vendidas
-		FROM Entrada AS E, Funciones AS F 
-		WHERE E.ID_Funcion = F.ID_Funcion AND
-	    	      F.ID_Funcion = 011023
-	) (?) 
-  */
+	WITH Ocupadas AS
+  	(
+	SELECT E.ID_Butaca AS Butacas_Vendidas
+	FROM Entrada AS E, Funciones AS F 
+	WHERE E.ID_Funcion = F.ID_Funcion AND
+  	      F.ID_Funcion = 011023
+	)
+	SELECT B.ID_Butaca AS Butacas_Libres
+	FROM Butaca AS B, Funciones AS F
+	WHERE B.ID_Sala = F.ID_Sala AND
+	      NOT EXISTS (SELECT O.Butacas_Vendidas 
+			  FROM Ocupadas AS O 
+			  WHERE B.ID_Butaca = O.Butacas_Vendidas) AND
+	      F.ID_Funcion = 011023
 
 
 
