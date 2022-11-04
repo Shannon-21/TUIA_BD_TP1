@@ -42,7 +42,7 @@
 
   El diagrama de entidades es el siguiente:
 
-  ![image](https://user-images.githubusercontent.com/81629492/199556281-75c6bd49-d5f2-4a54-8adf-9a3342fc6ab7.png)
+  ![image](https://user-images.githubusercontent.com/81629492/199860606-dc2fc04e-9626-433b-bcdb-b3728886ee9e.png)
 
   ----
 
