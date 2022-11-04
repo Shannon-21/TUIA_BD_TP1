@@ -61,6 +61,8 @@
   
   Los comandos fueron escritos en el archivo Tables_Creation.sql
   
+  Informar sobre las deciones tomadas en la crecion (lo de las claves compuestas y demas)
+  
 </p></details>
 
 ----
@@ -77,7 +79,7 @@
     <li> Al menos 5 funciones (algunas de ellas deben ocurrir entre el 24 y el 31 de octubre de2022). </li>
   </ol>  
   
-  Los comandod fueron escritos en el archivo Insertion_Tables.sql
+  Los comandos fueron escritos en el archivo Insertion_Tables.sql
 
 </p></details>
 
@@ -114,6 +116,8 @@
     <li> El preico de la entrada depende unicamente de la ubicacion de la butaca. </li> 
   </ol>
   
+  Las respuestas fueron guardadas en el archivo Tables_Alterations.sql
+  
 </p></details>
 
 ----
@@ -133,5 +137,7 @@
     y en la otra recaudo 3000 pesos, el promedio recaudado por funcion para esta pelicula es 2000 pesos.</li>
   <li> Determine el porcentaje de entradas vendidas por funcion, y muestre pelicula, sucursal, hora y dia, solo para aquellas en las que se vendio menos del 50%.</li>
   <li> Determine, para cada pelicula, cual fue la funcion que mas recaudo.</li>
+  
+  La solucion al ejercicio fue descrita en el archivo x.sql
 
 </p></details>
