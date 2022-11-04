@@ -138,6 +138,8 @@
   <li> Determine el porcentaje de entradas vendidas por funcion, y muestre pelicula, sucursal, hora y dia, solo para aquellas en las que se vendio menos del 50%.</li>
   <li> Determine, para cada pelicula, cual fue la funcion que mas recaudo.</li>
   
+  </ol>  
+    
   La solucion al ejercicio fue descrita en el archivo x.sql
 
 </p></details>
