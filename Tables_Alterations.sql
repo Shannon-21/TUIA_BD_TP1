@@ -28,3 +28,8 @@ ya que todas las funciones tienen un precio. En el caso de que pueda haber funci
 Esto es debatible ya que se podría considerar que las filas que tienen el atributo "Precio" en null son las gratuitas o son funciones que aún no han sido configuradas y no deberían tenerse en cuenta.
 Queda a la decición de cada uno
 */
+
+ALTER TABLE Entrada DROP COLUMN Precio;
+/* 
+Dado que el precio del entrada ya no es un atributo de la tabla "Entrada" sino que es un atributo de las otras tablas, se elimina la columna "Precio" de la tabla "Entrada".
+*/ 

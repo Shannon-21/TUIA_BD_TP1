@@ -76,6 +76,6 @@ CREATE TABLE Entrada (
 	ID_Butaca int FOREIGN KEY REFERENCES Butaca(ID_Butaca),
 	ID_Funcion INT FOREIGN KEY REFERENCES Funciones(ID_Funcion),
 	DNI INT FOREIGN KEY REFERENCES Usuario(DNI),
-	Precio MONEY,
+	Precio MONEY NOT NULL DEFAULT 0,
 	CONSTRAINT PK_Entrada PRIMARY KEY (id_butaca,id_funcion)
 );
