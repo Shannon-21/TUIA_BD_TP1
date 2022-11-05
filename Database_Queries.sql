@@ -25,16 +25,18 @@ from Funciones as F, Pelicula as P
 where F.ID_Sucursal = 1 and F.ID_Pelicula = P.ID_Pelicula and F.Fecha between '2022/10/24' and '2022/10/31' and P.ID_Genero = 1
 
 -- Ejercicio F
-select count(E.id_Entrada) as CantidadDeEntradas 
+select E.id_Butaca 
 from Entrada as E
-where (ID_Funcion = 25) 
+where ID_Funcion = 25 
 
 -- Ejercicio G
-Select ID_Butaca as ButacasLibres from Butaca where ID_Sala = 22
-and ID_Butaca not in (Select ID_Butaca from Entrada where ID_Funcion = 8)
+Select *  from Butaca as B
+INNER JOIN Funciones  as F
+on  b.id_sala=F.id_sala
+where b.ID_Butaca not in (Select ID_Butaca from Entrada where ID_Funcion = 8) and F.ID_Funcion = 8
 
 -- Ejercicio H
-select P.Nombre, G.Nombre as Genero 
-from Pelicula as P, Genero as G 
+select P.Nombre, G.Nombre, G.Id_Genero 
+from Pelicula as P, Genero as G
 where P.ID_Genero = G.ID_Genero 
-order by Genero
+order by G.ID_Genero
