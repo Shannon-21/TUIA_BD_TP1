@@ -12,6 +12,9 @@ CREATE TABLE [dbo].[Planes](
  select * from pelicula where APT = 0 
  --Plan familiar
  select * from Pelicula 
+ 
+ --Entendemos que en el plan gratiuto no se pueden ver películas Premium, pero tuvimos que considerar no mostrar tampoco películas infantiles,
+ --ya que de lo contrario no habría diferencia entre el plan premium y familiar.
 
  select * from usuario
 
