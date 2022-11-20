@@ -1,6 +1,5 @@
-# **Trabajo Practico N $^\circ$ 1**
-## Base de Datos 1
-### Tecnicatura Universitaria en Inteligencia Artificial - Comision 2
+# **Trabajo Practico Base de Datos 1**
+## Tecnicatura Universitaria en Inteligencia Artificial - Comision 2
 
 ### **Integrantes del equipo**:
 * Arevalo Ezequiel
@@ -11,10 +10,46 @@
 
 ----
 
-<details><summary>Enunciado</summary><p>
+## Enunciado TP 2
+
+Considere la situación planteada en el Trabajo Práctico 1, en donde se está desarrollando la base de datos para el sistema de venta electrónica de entradas del Cine Paraíso.
+
+1. Determine si las relaciones presentadas en la resolución del Trabajo Práctico 1 están en *3FN*.
+    
+    En caso afirmativo, justificar por qué.
+    
+    En caso negativo, explicar por qué no lo están, y realizar las modificaciones necesarias para que si esté en 3FN.
+    
+    Incluya el diagrama entidad-relación original, y el modificado (en caso de que haya hecho alguna modificación).
+    
+2. Suponga que el Cine Paraíso desea abrir una plataforma de streaming. Dicha plataforma funcionará a través de suscripciones (que pueden ser mensuales o anuales), y será accesible mediante un usuario y una contraseña.
+    
+    En la primera versión, los usuarios podrán suscribirse a este servicio optando por alguno de los tres planes existentes:
+    
+    - *Plan gratuito* (acceso restringido a 10 películas por mes).
+    - *Plan premium* (acceso a algunas películas en cartelera).
+    - *Plan familiar* (incluye las películas del plan premium, y películas infantiles).
+    
+    A su vez, se debe tener en cuenta el registro de pagos, y si el plan del usuario está activo o no según los mismos.
+    
+    Determine qué relaciones definiría para poder representar las subscripciones a la nueva plataforma de streaming, teniendo en cuenta que deben encontrarse en *3FN*.
+    
+    Es posible reutilizar o modificar alguna de las relaciones previamente existentes.
+    
+    Escriba el diagrama entidad-relación para dichas relaciones, explicando brevemente qué representa cada atributo, y justifique por qué las relaciones se encuentran normalizadas
+    
+3. Suponga que se desea verificar mensualmente si los planes de cada uno de los usuarios están al día con los pagos y, en función de eso, actualizar el plan como activo o inactivo.
+    
+    Cree el procedimiento almacenado correspondiente, y proponga los criterios a tener en cuenta para pasar un plan de activo a inactivo.
+    
+4. Cree un procedimiento almacenado que reciba como parámetros un usuario y una contraseña, y devuelva 1 si el login es correcto (es decir, coincide usuario, contraseña, y el plan está activo) y 0 en cualquier otro caso.
+
+----
+
+<details><summary>Enunciado TP 1</summary><p>
 
   Se desea construir una web-app para la venta electronica de entradas del Cine Paraiso.
-
+  
   Este cine cuenta con 3 sucursales en distintas ciudades de Argentina (Rosario, Cordoba, y La plata), pero
   podria abrir nuevas en el futuro.
 
