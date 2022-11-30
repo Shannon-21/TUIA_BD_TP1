@@ -18,9 +18,6 @@ CREATE TABLE Suscripciones (
 	CONSTRAINT FK_Suscripciones_Plan FOREIGN KEY (ID_Plan) REFERENCES Planes
 );
  
-
-select IdPlan, Dni from Suscripciones;
-
  --Agregar propiedad "Premium" para saber si la película pertenece al plan premium
 
 ALTER TABLE Peliculas ADD Premium BIT NOT NULL DEFAULT 0
