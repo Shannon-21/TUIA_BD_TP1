@@ -35,10 +35,10 @@ ALTER TABLE Usuarios ADD Clave VARCHAR(10) NOT NULL DEFAULT '123456'
 
 -- Insertar datos sobre los planes disponibles
 
-INSERT INTO Planes (Nombre, Descripcion)
-VALUES ('Gratuito', '(acceso restringido a 10 pel´ıculas por mes)'),
-	   ('Premium', '(acceso a algunas pel´ıculas en cartelera)'),
-	   ('Familiar', '(incluye las pel´ıculas del plan premium, y pel´ıculas infantiles)')
+INSERT INTO Planes (Nombre, Descripcion, Precio)
+VALUES ('Gratuito', '(acceso restringido a 10 pel´ıculas por mes)', 0),
+	   ('Premium', '(acceso a algunas pel´ıculas en cartelera)', 100),
+	   ('Familiar', '(incluye las pel´ıculas del plan premium, y pel´ıculas infantiles)', 200)
 
 
 -- Insertar datos sobre los usurios de la plataforma
@@ -63,9 +63,9 @@ AS
 BEGIN
 
 SELECT CASE WHEN EXISTS (SELECT * FROM Suscripciones 
-INNER JOIN Usuario ON Suscripciones.DNI = Usuario.DNI
-WHERE Usuario.DNI = @pDni 
-AND Usuario.Clave = @pClave
+INNER JOIN Usuarios ON Suscripciones.DNI = Usuarios.DNI
+WHERE Usuarios.DNI = @pDni 
+AND Usuarios.Clave = @pClave
 AND DATEDIFF(DAY, FechaAlta, GETDATE()) <= (CASE WHEN Tipo = 0 THEN 30 ELSE 365 END)) THEN 1 ELSE 0 END AS LoginCorrecto
 
 END
