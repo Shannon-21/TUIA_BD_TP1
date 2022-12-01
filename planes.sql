@@ -4,22 +4,20 @@ CREATE TABLE Planes (
 	ID_Plan int IDENTITY(1,1) NOT NULL,
 	Nombre varchar(15) NOT NULL,
 	Descripcion varchar(100) NOT NULL,
+	Precio float NOT NULL,
 	CONSTRAINT PK_Planes PRIMARY KEY (ID_Plan)
 	);
 
-
 CREATE TABLE Suscripciones (
 	DNI int NOT NULL,
-	FechaAlta date NOT NULL,
 	ID_Plan int NOT NULL,
+	FechaAlta date NOT NULL,
 	Tipo bit NOT NULL,
-	CONSTRAINT PK_Suscripciones PRIMARY KEY( DNI, FechaAlta),
+	CONSTRAINT PK_Suscripciones PRIMARY KEY( DNI, ID_Plan),
 	CONSTRAINT FK_Suscripciones_Usuarios FOREIGN KEY (DNI) REFERENCES Usuarios,
 	CONSTRAINT FK_Suscripciones_Plan FOREIGN KEY (ID_Plan) REFERENCES Planes
 );
  
-
-
  --Agregar propiedad "Premium" para saber si la película pertenece al plan premium
 
 ALTER TABLE Peliculas ADD Premium BIT NOT NULL DEFAULT 0
@@ -52,9 +50,8 @@ VALUES (50123300, '2022/10/29', 1, 0),
 	   (178125, '2022/11/01', 1, 1),
 	   (25688911, '2022/10/31', 2, 0),
 	   (44721345, '2022/09/12', 3, 1),
-	   (4733901, '2022/10/10', 1, 1),
-	   (50123300, '2022/11/29', 1, 0),
-	   (12235012, '2022/11/12', 2, 0)
+	   (4733901, '2022/10/10', 1, 1)
+
 
 
 -- Procedure del ejercicio 4 (No se donde va)
