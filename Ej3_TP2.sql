@@ -15,7 +15,7 @@ INSERT INTO PAGOS (DNI, Fecha, IdPlan) VALUES (50123300, '2022/10/29', 1),
 	   (44721345, '2022/09/12', 3),
 	   (4733901, '2022/10/10', 1)
 
-CREATE PROCEDURE DishabilitarCuentasConDeudas   
+CREATE PROCEDURE DeshabilitarCuentasConDeudas   
     @ToleranciaDeDiasDeDeuda int   
 AS   
     UPDATE S  
