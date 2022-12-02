@@ -64,11 +64,10 @@ SELECT CASE WHEN EXISTS (SELECT * FROM Suscripciones
 INNER JOIN Usuarios ON Suscripciones.DNI = Usuarios.DNI
 WHERE Usuarios.DNI = @pDni 
 AND Usuarios.Clave = @pClave
-AND Activo = 1
-
+AND Activo = 1) THEN 1 ELSE 0 END As LoginCorrecto
 END
-select * from usuarios
-EXEC LoginUsuario @pDni = '178125', @pClave = '123456'
+go
+
 
 
 CREATE TABLE Pagos (
