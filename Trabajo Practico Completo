@@ -1,0 +1,525 @@
+/* ----------------CREACION ENTIDADES-----------------------------*/
+
+CREATE TABLE Sucursales (
+	ID_Sucursal INT PRIMARY KEY NOT NULL,
+	Ubicacion VARCHAR(20)
+);
+
+
+CREATE TABLE Salas (
+	ID_Sala INT NOT NULL,
+	ID_Sucursal INT FOREIGN KEY REFERENCES Sucursales(ID_Sucursal),
+	CONSTRAINT PK_Sala PRIMARY KEY (ID_Sala, ID_Sucursal)
+);
+
+
+CREATE TABLE Generos (
+	ID_Genero INT PRIMARY KEY NOT NULL,
+	Nombre VARCHAR(20)
+);
+
+
+CREATE TABLE Peliculas (
+	ID_Pelicula INT PRIMARY KEY NOT NULL,
+	ID_Genero INT FOREIGN KEY REFERENCES Generos(ID_Genero),
+	Nombre VARCHAR(50),
+	Subtitulos BIT,
+	APT BIT
+);
+
+
+CREATE TABLE Funciones (
+	ID_Funcion INT UNIQUE NOT NULL IDENTITY,
+	ID_Pelicula INT ,
+	ID_Sala INT ,
+	ID_Sucursal INT,
+	Fecha DATE,
+	Horario TIME(0),
+	CONSTRAINT FK_Peliculas FOREIGN KEY (ID_Pelicula) REFERENCES Peliculas(ID_Pelicula),
+	CONSTRAINT FK_Salas FOREIGN KEY (ID_Sala, ID_Sucursal) REFERENCES Salas(ID_Sala, ID_Sucursal),
+	CONSTRAINT PK_Salas_Funciones PRIMARY KEY (ID_Pelicula, ID_Sala, ID_Sucursal, Fecha, Horario)
+);
+
+
+CREATE TABLE Usuarios (
+	DNI INT PRIMARY KEY NOT NULL,
+	Nombre VARCHAR(50),
+	Correo VARCHAR(50)
+);
+
+
+CREATE TABLE Butacas (
+	ID_Butaca int NOT NULL UNIQUE IDENTITY,
+	ID_Sala INT,
+	ID_Sucursal INT,
+	Fila INT,
+	Columna VARCHAR(1),
+	CONSTRAINT FK_Sala_Butaca FOREIGN KEY (ID_Sala, ID_Sucursal) REFERENCES Salas(ID_Sala, ID_Sucursal),
+	CONSTRAINT PK_Butaca PRIMARY KEY (ID_Sucursal, ID_Sala, Fila, Columna)
+);
+
+
+CREATE TABLE Entradas (
+	ID_Entrada INT NOT NULL UNIQUE IDENTITY,
+	ID_Butaca int FOREIGN KEY REFERENCES Butacas(ID_Butaca),
+	ID_Funcion INT FOREIGN KEY REFERENCES Funciones(ID_Funcion),
+	DNI INT FOREIGN KEY REFERENCES Usuarios(DNI),
+	Precio MONEY NOT NULL DEFAULT 0,
+	CONSTRAINT PK_Entrada PRIMARY KEY (ID_Butaca, ID_Funcion)
+);
+
+/* ------------------INSERCION DE DATOS---------------------------------*/
+
+INSERT INTO Sucursales
+VALUES (1, 'Rosario'),
+       (2, 'Cordoba'),
+       (3, 'La Plata')
+
+
+INSERT INTO Salas
+VALUES (11, 1),(12, 1),(13, 1),
+       (21, 2),(22, 2),(23, 2),
+       (31, 3),(32, 3),(33, 3)
+
+
+INSERT INTO Butacas (ID_Sala, ID_Sucursal, Fila, Columna)
+VALUES  (11, 1, 1, 'a'), (11, 1, 2, 'a'), (11, 1, 3, 'a'), (11, 1, 4, 'a'), (11, 1, 5, 'a'), (11, 1, 1, 'b'),
+		(11, 1, 2, 'b'), (11, 1, 3, 'b'), (11, 1, 4, 'b'), (11, 1, 5, 'b'), (11, 1, 1, 'c'), (11, 1, 2, 'c'),
+		(11, 1, 3, 'c'), (11, 1, 4, 'c'), (11, 1, 5, 'c'), (11, 1, 1, 'd'), (11, 1, 2, 'd'), (11, 1, 3, 'd'),
+		(11, 1, 4, 'd'), (11, 1, 5, 'd'), (12, 1, 1, 'a'), (12, 1, 2, 'a'), (12, 1, 3, 'a'), (12, 1, 4, 'a'),
+		(12, 1, 5, 'a'), (12, 1, 1, 'b'), (12, 1, 2, 'b'), (12, 1, 3, 'b'), (12, 1, 4, 'b'), (12, 1, 5, 'b'),
+		(12, 1, 1, 'c'), (12, 1, 2, 'c'), (12, 1, 3, 'c'), (12, 1, 4, 'c'), (12, 1, 5, 'c'), (12, 1, 1, 'd'),
+		(12, 1, 2, 'd'), (12, 1, 3, 'd'), (12, 1, 4, 'd'), (12, 1, 5, 'd'), (13, 1, 1, 'a'), (13, 1, 2, 'a'),
+		(13, 1, 3, 'a'), (13, 1, 4, 'a'), (13, 1, 5, 'a'), (13, 1, 1, 'b'), (13, 1, 2, 'b'), (13, 1, 3, 'b'),
+		(13, 1, 4, 'b'), (13, 1, 5, 'b'), (13, 1, 1, 'c'), (13, 1, 2, 'c'), (13, 1, 3, 'c'), (13, 1, 4, 'c'),
+		(13, 1, 5, 'c'), (13, 1, 1, 'd'), (13, 1, 2, 'd'), (13, 1, 3, 'd'), (13, 1, 4, 'd'), (13, 1, 5, 'd'),
+		(21, 2, 1, 'a'), (21, 2, 2, 'a'), (21, 2, 3, 'a'), (21, 2, 4, 'a'), (21, 2, 5, 'a'), (21, 2, 1, 'b'),
+		(21, 2, 2, 'b'), (21, 2, 3, 'b'), (21, 2, 4, 'b'), (21, 2, 5, 'b'), (21, 2, 1, 'c'), (21, 2, 2, 'c'), 
+		(21, 2, 3, 'c'), (21, 2, 4, 'c'), (21, 2, 5, 'c'), (21, 2, 1, 'd'), (21, 2, 2, 'd'), (21, 2, 3, 'd'), 
+		(21, 2, 4, 'd'), (21, 2, 5, 'd'), (22, 2, 1, 'a'), (22, 2, 2, 'a'), (22, 2, 3, 'a'), (22, 2, 4, 'a'),
+		(22, 2, 5, 'a'), (22, 2, 1, 'b'), (22, 2, 2, 'b'), (22, 2, 3, 'b'), (22, 2, 4, 'b'), (22, 2, 5, 'b'), 
+		(22, 2, 1, 'c'), (22, 2, 2, 'c'), (22, 2, 3, 'c'), (22, 2, 4, 'c'), (22, 2, 5, 'c'), (22, 2, 1, 'd'),
+		(22, 2, 2, 'd'), (22, 2, 3, 'd'), (22, 2, 4, 'd'), (22, 2, 5, 'd'), (23, 2, 1, 'a'), (23, 2, 2, 'a'),
+		(23, 2, 3, 'a'), (23, 2, 4, 'a'), (23, 2, 5, 'a'), (23, 2, 1, 'b'), (23, 2, 2, 'b'), (23, 2, 3, 'b'),
+		(23, 2, 4, 'b'), (23, 2, 5, 'b'), (23, 2, 1, 'c'), (23, 2, 2, 'c'), (23, 2, 3, 'c'), (23, 2, 4, 'c'),
+		(23, 2, 5, 'c'), (23, 2, 1, 'd'), (23, 2, 2, 'd'), (23, 2, 3, 'd'), (23, 2, 4, 'd'), (23, 2, 5, 'd'),
+		(31, 3, 1, 'a'), (31, 3, 2, 'a'), (31, 3, 3, 'a'), (31, 3, 4, 'a'), (31, 3, 5, 'a'), (31, 3, 1, 'b'),
+		(31, 3, 2, 'b'), (31, 3, 3, 'b'), (31, 3, 4, 'b'), (31, 3, 5, 'b'), (31, 3, 1, 'c'), (31, 3, 2, 'c'),
+		(31, 3, 3, 'c'), (31, 3, 4, 'c'), (31, 3, 5, 'c'), (31, 3, 1, 'd'), (31, 3, 2, 'd'), (31, 3, 3, 'd'),
+		(31, 3, 4, 'd'), (31, 3, 5, 'd'), (32, 3, 1, 'a'), (32, 3, 2, 'a'), (32, 3, 3, 'a'), (32, 3, 4, 'a'),
+		(32, 3, 5, 'a'), (32, 3, 1, 'b'), (32, 3, 2, 'b'), (32, 3, 3, 'b'), (32, 3, 4, 'b'), (32, 3, 5, 'b'),
+		(32, 3, 1, 'c'), (32, 3, 2, 'c'), (32, 3, 3, 'c'), (32, 3, 4, 'c'), (32, 3, 5, 'c'), (32, 3, 1, 'd'),
+		(32, 3, 2, 'd'), (32, 3, 3, 'd'), (32, 3, 4, 'd'), (32, 3, 5, 'd'), (33, 3, 1, 'a'), (33, 3, 2, 'a'),
+		(33, 3, 3, 'a'), (33, 3, 4, 'a'), (33, 3, 5, 'a'), (33, 3, 1, 'b'), (33, 3, 2, 'b'), (33, 3, 3, 'b'),
+		(33, 3, 4, 'b'), (33, 3, 5, 'b'), (33, 3, 1, 'c'), (33, 3, 2, 'c'), (33, 3, 3, 'c'), (33, 3, 4, 'c'),
+		(33, 3, 5, 'c'), (33, 3, 1, 'd'), (33, 3, 2, 'd'), (33, 3, 3, 'd'), (33, 3, 4, 'd'), (33, 3, 5, 'd')
+
+
+INSERT INTO Generos
+VALUES (1, 'Ciencia ficcion'),
+       (2, 'Animado'),
+       (3, 'Drama'),
+       (4, 'Fantasia'),
+       (5, 'Terror'),
+       (6, 'Romance'),
+       (7, 'Comedia')
+
+
+INSERT INTO Peliculas
+VALUES (3412, 1, 'The Avengers', 1, 1),
+       (9458, 1, 'Star Wars', 0, 1),
+       (3101, 3, 'Argentina, 1985', 0, 0),
+       (1711, 4, 'Edward Scissorhands', 1, 0),
+       (4578, 2, 'My neighbor Totoro', 1, 1),
+       (1120, 5, 'Sonrie', 1, 0),
+       (9110, 6, 'Bajo la misma estrella', 0, 0),
+       (0014, 7, 'Scary movie 5', 0, 0),
+       (9812, 1, 'Chappie', 1, 0),
+       (5012, 7, 'Son como niños 2', 1, 0),
+       (4390, 2, 'Dragon Ball super Broly', 1, 1),
+       (1001, 3, 'Parasite', 1, 0)
+
+
+
+INSERT INTO Funciones (ID_Pelicula, ID_Sala, ID_Sucursal, Fecha, Horario)
+VALUES (3101, 13, 1, '2022/10/24', '15:30:00'),
+       (3412, 32, 3, '2021/04/05', '18:00:00'),
+       (4578, 21, 2, '2022/10/30', '15:00:00'),
+       (9458, 31, 3, '2022/10/31', '20:00:00'),
+       (1711, 22, 2, '2022/04/06', '19:45:00'),
+       (3101, 32, 3, '2022/03/06', '20:45:00'),
+       (9458, 31, 3, '2022/07/22', '17:15:00'),
+       (3101, 22, 2, '2022/10/28', '17:00:00'),
+       (1711, 11, 1, '2022/10/31', '14:45:00'),
+       (3412, 12, 1, '2022/12/21', '18:15:00'),
+       (4578, 33, 3, '2022/01/21', '13:00:00'),
+       (3101, 13, 1, '2022/10/31', '19:00:00'),
+       (1711, 12, 1, '2022/09/09', '15:45:00'),
+       (1001, 13, 1, '2022/10/30', '19:30:00'),
+       (4390, 32, 3, '2022/09/15', '15:00:00'),
+       (9812, 11, 1, '2022/10/25', '18:45:00'),
+       (1711, 31, 3, '2022/11/06', '13:45:00'),
+       (1120, 23, 2, '2022/10/31', '18:30:00'),
+       (5012, 13, 1, '2022/11/02', '19:00:00'),
+       (9110, 22, 2, '2022/11/21', '14:30:00'),
+       (0014, 21, 2, '2022/10/26', '19:45:00'),
+       (4390, 23, 2, '2022/11/15', '17:45:00'),
+       (1120, 22, 2, '2022/10/30', '12:30:00'),
+       (3101, 13, 1, '2022/10/24', '18:45:00'),
+       (3101, 21, 2, '2022/10/24', '19:15:00'), 
+       (3101, 22, 2, '2022/10/24', '13:00:00'), 
+       (3101, 33, 3, '2022/10/24', '14:45:00'),
+       (3412, 12, 1, '2022/10/26', '15:15:00'), 
+       (9458, 13, 1, '2022/10/27', '18:45:00') 
+
+
+INSERT INTO Usuarios
+VALUES (12235012, 'Robert Downey Jr.', 'ironman@gmail.com'),
+       (233451, 'Mirta Legrand', 'lamirta@hotmail.com'),
+       (44721345, 'Constantino Ferrucci', 'tinoferrucci@gmail.com'),
+       (4733901, 'Alberto Fernandez', 'elarbertito@gmail.com'),
+       (178125, 'Jesus de Nazareth', 'Jisus123@hotmail.com'),
+       (50123300, 'Edgar Alan Poe', 'alanpoe21@gmail.com'),
+       (25688911, 'Dwayne Johnson', 'therock144@gmail.com')
+
+
+INSERT INTO Entradas (ID_Butaca, ID_Funcion, DNI, Precio)
+VALUES (47, 1, 178125, 570),
+       (148, 2, 12235012, 430),
+       (62, 3, 25688911, 200),
+       (139, 4, 44721345, 450),
+       (40, 10, 233451, 210),
+       (93, 8, 50123300, 710),
+       (23, 10, 25688911, 110),
+       (57, 1, 233451, 250),
+       (48, 12, 44721345, 510),
+       (85, 8, 233451, 310),
+       (160, 6, 44721345, 460),
+       (152, 6, 233451, 410),
+       (116, 18, 25688911, 810),
+       (65, 3, 178125, 410),
+       (92, 8, 233451, 540),
+       (91, 8, 44721345, 540),
+       (88, 5, 25688911, 440),
+       (81, 5, 44721345, 640),
+       (61, 25, 25688911, 450)
+
+/* -----------------QUERIES INICIALES-------------------------------*/
+
+-- Ejercicio A
+/* ¿Cuantas funciones hay en la sucursal La Plata? */
+
+select count(ID_Funcion) as Recuento 
+from Funciones 
+where ID_Sucursal = 3
+
+
+-- Ejercicio B
+/* ¿Cuales son las peliculas en cartelera en una 
+    fecha determinada en la sucursal Cordoba? */
+
+select Nombre 
+from Peliculas as P, 
+	 Funciones as F 
+where P.ID_Pelicula = F.ID_Pelicula and 
+	  F.Fecha = '2022/10/30' and 
+	  F.ID_Sucursal = 2
+
+
+-- Ejercicio C
+/* ¿Cuales son los horarios disponibles para ver la pelicula 
+	Argentina, 1985 en una fecha determinada en la sucursal Rosario? */
+
+select Horario 
+from Funciones 
+where ID_Sucursal = 1 and 
+	  ID_Pelicula = 3101 and 
+	  Fecha = '2022/10/24'
+
+
+-- Ejercicio D
+/* ¿Cuales son los horarios disponibles para ver la pelicula
+    Argentina, 1985 en una fecha determinada para cada sucursal?
+    Muestre estos resultados ordenados cronologicamente de forma creciente. */
+
+select ID_Sucursal as Sucursal, Horario 
+from Funciones 
+where ID_Pelicula = 3101 and 
+	  Fecha = '2022/10/24'
+order by Sucursal, Horario asc
+
+
+-- Ejercicio E
+/* ¿Cuales peliculas de ciencia ficcion hay en cartelera 
+    la semana del 24 de octubre de 2022 en la sucursal Rosario? */
+
+select P.Nombre, F.Fecha, F.Horario 
+from Funciones as F, Peliculas as P 
+where F.ID_Sucursal = 1 and 
+	  F.ID_Pelicula = P.ID_Pelicula and 
+	  F.Fecha between '2022/10/24' and '2022/10/31' and 
+	  P.ID_Genero = 1
+
+
+-- Ejercicio F
+/* ¿Cuales son las butacas vendidas para ver 
+    Argentina, 1985 en Cordoba en una funcion determinada? */
+
+select E.ID_Butaca 
+from Entradas as E
+where ID_Funcion = 8
+
+
+-- Ejercicio G
+/* ¿Cuales son las butacas libres para ver
+	Argentina, 1985 en Cordoba en una funcion determinada? */
+
+
+select B.ID_Butaca 
+from Butacas as B
+	inner join Funciones as F
+	on B.ID_Sala = F.ID_Sala
+where B.ID_Butaca not in ( select ID_Butaca 
+						   from Entradas
+						   where ID_Funcion = 8) and 
+						   F.ID_Funcion = 8
+
+
+-- Ejercicio H
+/* ¿Cuantas peliculas por genero que estan o
+    estuvieron en cartelera en el Cine Paraiso? */
+
+select G.Nombre, count(G.ID_Genero) as Recuento
+from Peliculas as P, Generos as G
+where P.ID_Genero = G.ID_Genero 
+group by G.Nombre
+order by Recuento desc
+
+/* --------------------ACTUALIZACION PRECIOS-------------------------------------*/
+
+-- Quitar de la tabla "Entrada" la columna "Precio".
+
+ALTER TABLE Entradas DROP CONSTRAINT DF__Entradas__Precio__3C69FB99;
+ALTER TABLE Entradas DROP COLUMN Precio;
+ALTER TABLE Peliculas ADD Precio MONEY NOT NULL DEFAULT 0;
+
+
+-- Agregando precio a las peliculas por  tipo de genero
+
+UPDATE Peliculas SET Precio=100 where ID_Genero in (2, 4, 6);
+UPDATE Peliculas SET Precio=250.50 where ID_Genero in (1, 3, 5, 7);
+
+
+/* ---------------------QUERIES ESTADISTICAS-------------------------------*/
+
+-- a) Determine el total recaudado por funcion.
+
+/* 
+    Selecciona la interseccion de las Entrada, Las funciones y las peliculas 
+    agrupadas por cada funcion y suma el total vendido para cada funcion
+*/
+
+select F.ID_Funcion, sum(P.Precio) as "Total recaudado por funcion" 
+from Funciones as F
+	 inner join Peliculas as P
+	 on F.ID_Pelicula = P.ID_Pelicula 
+	 inner join Entradas as E
+	 on F.ID_Funcion = E.ID_Funcion
+group by F.ID_Funcion 
+order by F.ID_Funcion;
+
+
+
+/* b) Determine el promedio recaudado por funcion para cada pelicula. 
+   Es decir, si la pelicula Argentina, 1985 tuvo dos funciones, y en una 
+   recaudo 1000 pesos, y en la otra recaudo 3000 pesos, el promedio recaudado
+   por funcion para esta pelicula es 2000 pesos.
+*/
+
+/* 
+	Selecciona la interseccion de las funciones, las peliculas y las entradas agrupadas por funcion y suma el total
+   recaudado por cada funcion.
+   Luego se selecciona el resultado anterior agrupado por pelicula y se calcula el promedio
+*/
+
+select ID_Pelicula, avg(Total) as "Promedio por funcion"
+from Funciones as M
+	 inner join ( select F.ID_Funcion, sum(P.Precio) as Total 
+			  from Funciones as F
+				   inner join Peliculas as P
+				   on F.ID_Pelicula = P.ID_Pelicula 
+				   inner join Entradas as E
+				   on F.ID_Funcion = E.Id_Funcion
+			  group by F.ID_Funcion
+		     ) as total_by_func 
+			on M.ID_Funcion = total_by_func.ID_Funcion 
+	  	        group by ID_Pelicula;
+
+
+
+/* c) Determine el porcentaje de entradas vendidas por funcion, y muestre pelicula, sucursal, 
+      hora y dia, solo para aquellas en las que se vendio menos del 50%.
+*/
+
+/* 
+   Se selecciona y agrupan la interseccion entre todas las entradas y funciones agrupados por funcion,
+   y se calcula el porcentaje de butacas ocupadas.
+   Luego se selecciona el resultado anterior y se muestra solo las funciones con menos del 50% de ocupacion
+*/
+
+with t_Porcentaje as (
+		  select F.ID_Funcion, P.Nombre, F.ID_Sucursal, F.ID_Sala, Fecha, Horario,
+			 count(E.ID_Entrada) * 100 / (select count(ID_Butaca)
+						  from Butacas
+						  where ID_Sala = F.ID_Sala) as Porcentaje
+		  from Entradas as E 
+			   inner join Funciones as F 
+			   on F.ID_Funcion = E.ID_Funcion, Peliculas as P
+		  where P.ID_Pelicula = F.ID_Pelicula
+		  group by F.ID_Funcion, P.Nombre, F.ID_Sucursal, F.ID_Sala, Fecha, Horario
+		 )
+	select * 
+	from t_Porcentaje 
+	where t_Porcentaje.Porcentaje < 50;
+
+
+
+-- c) Determine, para cada pelicula, cual fue la funcion que mas recaudo.
+
+/* 
+   Se selecciona la interseccion entre las funciones, las peliculas y las entradas agrupados por funcion
+   y se suma el total recaudado por cada funcion.
+   Luego se selecciona la interseccion del resultado anterior agrupado por pelicula y se selecciona 
+   la funcion con mayor recaudacion
+*/
+
+select P.Nombre, max(P2.Total) as "Total Recaudado", max(P2.total_vendidas) as "Total Vendidas"
+from Peliculas as T
+	 join (
+		   select F.ID_Funcion, F.ID_Pelicula, sum(P.Precio) as Total, count(P.ID_Pelicula) as total_vendidas
+		   from funciones as F
+			    inner join Peliculas as P
+			    on F.ID_Pelicula = P.ID_Pelicula 
+			    inner join Entradas as E
+			    on F.ID_Funcion = E.ID_Funcion
+		   group by F.ID_Funcion, F.ID_Pelicula
+		  ) as P2 
+	 on P2.ID_Pelicula = T.ID_Pelicula, Peliculas as P
+where P.ID_Pelicula = T.ID_Pelicula
+group by P.Nombre 
+order by "Total Vendidas" desc;
+
+
+
+
+
+/* ---------------------COMIENZO TP PARTE 2------------------------------*/
+
+/* --------------------CREACION DE NUEVAS ENTIDADES-------------------------------*/
+
+CREATE TABLE Planes (
+	ID_Plan int IDENTITY NOT NULL,
+	Nombre varchar(15) NOT NULL,
+	Descripcion varchar(100) NOT NULL,
+	Precio float NOT NULL,
+	CONSTRAINT PK_Planes PRIMARY KEY (ID_Plan)
+	);
+
+CREATE TABLE Suscripciones (
+	DNI int NOT NULL,
+	ID_Plan int NOT NULL,
+	FechaAlta date NOT NULL,
+	Tipo bit NOT NULL,
+	Activo bit NOT NULL DEFAULT 1,
+	CONSTRAINT PK_Suscripciones PRIMARY KEY( DNI, ID_Plan),
+	CONSTRAINT FK_Suscripciones_Usuarios FOREIGN KEY (DNI) REFERENCES Usuarios,
+	CONSTRAINT FK_Suscripciones_Plan FOREIGN KEY (ID_Plan) REFERENCES Planes
+);
+
+CREATE TABLE Pagos (
+    ID_Pago int IDENTITY NOT NULL,
+    DNI int NOT NULL,
+    ID_Plan int NOT NULL,
+    Fecha date NOT NULL,
+    CONSTRAINT PK_Pagos PRIMARY KEY (ID_Pago),
+    CONSTRAINT FK_Pago_Suscripciones FOREIGN KEY (DNI, ID_Plan) REFERENCES Suscripciones,
+);
+ 
+/* -----------------ACTUALIZACIONES---------------------------------*/
+
+ --Agregar propiedad "Premium" para saber si la pelicula pertenece al plan premium
+
+ALTER TABLE Peliculas ADD Premium BIT NOT NULL DEFAULT 0
+
+UPDATE Peliculas SET Premium = 1 WHERE ID_Pelicula IN (1001, 4390, 9110, 4578, 9458)
+
+--Agregar contrasenia por defecto a los usuarios
+
+ALTER TABLE Usuarios ADD Clave VARCHAR(10) NOT NULL DEFAULT '123456'
+
+/* -------------------INSERCION DE NUEVOS DATOS-------------------------------------*/
+
+-- Insertar datos sobre las nuevas entidades
+
+INSERT INTO Planes (Nombre, Descripcion, Precio)
+VALUES ('Gratuito', '(acceso restringido a 10 peliculas por mes)', 0),
+	   ('Premium', '(acceso a algunas peliculas en cartelera)', 100),
+	   ('Familiar', '(incluye las peliculas del plan premium, y peliculas infantiles)', 200)
+
+INSERT INTO Suscripciones (DNI, FechaAlta, ID_Plan, Tipo)
+VALUES (50123300, '2022/10/29', 1, 0),
+	   (12235012, '2022/09/12', 2, 0),
+	   (50123300, '2022/11/10', 3, 0),
+	   (178125, '2022/11/01', 1, 1),
+	   (25688911, '2022/10/31', 2, 0),
+	   (44721345, '2022/09/12', 3, 1),
+	   (4733901, '2022/10/10', 1, 1)
+
+INSERT INTO PAGOS (DNI, Fecha, ID_Plan)
+VALUES (50123300, '2022/10/29', 1),
+	   (12235012, '2022/09/12', 2),
+	   (50123300, '2022/11/10', 3),
+	   (178125, '2022/11/01', 1),
+	   (25688911, '2022/10/31', 2),
+	   (44721345, '2022/09/12', 3),
+	   (4733901, '2022/10/10', 1)
+
+/* ----------------PROCEDURE EJERCICIOS 3 Y 4--------------------------------*/
+
+-- Procedure del ejercicio 3
+
+CREATE PROCEDURE DishabilitarCuentasConDeudas
+@ToleranciaDeDiasDeDeuda int
+AS   
+BEGIN
+
+UPDATE S  
+	SET Activo = 0
+	FROM Suscripciones AS S
+	    INNER JOIN Pagos AS P
+	    ON S.DNI = P.DNI AND 
+           S.ID_Plan = P.ID_Plan
+	WHERE  DATEDIFF(DAY, Fecha, GETDATE())  > @ToleranciaDeDiasDeDeuda
+
+END
+
+-- Procedure del ejercicio 4
+	   
+CREATE PROCEDURE LoginUsuario
+@pDni int,
+@pClave varchar(10)
+AS
+BEGIN
+
+SELECT CASE WHEN EXISTS (
+		SELECT * 
+		FROM Suscripciones 
+			INNER JOIN Usuarios 
+			ON Suscripciones.DNI = Usuarios.DNI
+		WHERE Usuarios.DNI = @pDni AND
+				Usuarios.Clave = @pClave AND
+				Activo = 1
+						)
+THEN 1 ELSE 0 END As LoginCorrecto
+
+END
