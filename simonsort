@@ -98,3 +98,5 @@ AS
 	inner join pagos as p
 		on s.dni = p.dni and s.id_plan = p.idplan
 	where  DATEDIFF(day,fecha,GETDATE()) >@ToleranciaDeDiasDeDeuda
+	
+
