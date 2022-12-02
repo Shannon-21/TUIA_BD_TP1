@@ -498,7 +498,7 @@ UPDATE S
 	FROM Suscripciones AS S
 	    INNER JOIN Pagos AS P
 	    ON S.DNI = P.DNI AND 
-           S.ID_Plan = P.ID_Plan
+               S.ID_Plan = P.ID_Plan
 	WHERE  DATEDIFF(DAY, Fecha, GETDATE())  > @ToleranciaDeDiasDeDeuda
 
 END
@@ -519,7 +519,7 @@ SELECT CASE WHEN EXISTS (
 		WHERE Usuarios.DNI = @pDni AND
 				Usuarios.Clave = @pClave AND
 				Activo = 1
-						)
+			)
 THEN 1 ELSE 0 END As LoginCorrecto
 
 END
