@@ -384,30 +384,36 @@ with t_Porcentaje as (
 
 
 
--- c) Determine, para cada pelicula, cual fue la funcion que mas recaudo.
+-- d) Determine, para cada pelicula, cual fue la funcion que mas recaudo.
 
 /* 
-   Se selecciona la interseccion entre las funciones, las peliculas y las entradas agrupados por funcion
-   y se suma el total recaudado por cada funcion.
-   Luego se selecciona la interseccion del resultado anterior agrupado por pelicula y se selecciona 
-   la funcion con mayor recaudacion
+   Se selecciona la interseccion entre las funciones, las peliculas y las entradas.
+   Luego se agrupan por funcion obteniendo el recaudo total de cada funcion.
+   Finalmente selecciona la funcion de mayor recauso para cada pelicula.
 */
 
-select P.Nombre, max(P2.Total) as "Total Recaudado", max(P2.total_vendidas) as "Total Vendidas"
-from Peliculas as T
-	 join (
-		   select F.ID_Funcion, F.ID_Pelicula, sum(P.Precio) as Total, count(P.ID_Pelicula) as total_vendidas
-		   from funciones as F
-			    inner join Peliculas as P
-			    on F.ID_Pelicula = P.ID_Pelicula 
-			    inner join Entradas as E
-			    on F.ID_Funcion = E.ID_Funcion
-		   group by F.ID_Funcion, F.ID_Pelicula
-		  ) as P2 
-	 on P2.ID_Pelicula = T.ID_Pelicula, Peliculas as P
-where P.ID_Pelicula = T.ID_Pelicula
-group by P.Nombre 
-order by "Total Vendidas" desc;
+select F.ID_Funcion, P.ID_Pelicula, P.Nombre, P.Precio
+into S
+from Entradas as E
+inner join Funciones as F
+	on E.ID_Funcion = F.ID_Funcion
+inner join Peliculas as P
+	on P.ID_Pelicula = F.ID_Pelicula;
+
+
+select ID_Funcion, ID_Pelicula, Nombre, sum(Precio) as Recaudo
+into M
+from S
+group by ID_Pelicula, Nombre, ID_Funcion
+order by Recaudo desc 
+
+
+select ID_Funcion, Nombre, Recaudo
+from M as M1
+where Recaudo = ( select max(M2.Recaudo) 
+		  from M as M2 
+		  where M1.Nombre = M2.Nombre )
+order by Recaudo desc
 
 
 
@@ -489,18 +495,17 @@ VALUES (50123300, '2022/10/29', 1),
 -- Procedure del ejercicio 3
 
 CREATE PROCEDURE DishabilitarCuentasConDeudas
-@ToleranciaDeDiasDeDeuda int
 AS   
 BEGIN
-
-UPDATE S  
-	SET Activo = 0
-	FROM Suscripciones AS S
-	    INNER JOIN Pagos AS P
-	    ON S.DNI = P.DNI AND 
-               S.ID_Plan = P.ID_Plan
-	WHERE  DATEDIFF(DAY, Fecha, GETDATE())  > @ToleranciaDeDiasDeDeuda
-
+	UPDATE Suscripciones
+	SET Activo = CASE WHEN Tipo = 0 AND
+   	  		       DATEDIFF(DAY, FechaAlta, GETDATE()) > 30
+			       THEN 0
+			  WHEN Tipo = 1 AND
+		   	       DATEDIFF(DAY, FechaAlta, GETDATE()) > 365
+			       THEN 0
+			  ELSE 1
+			  END
 END
 
 -- Procedure del ejercicio 4
@@ -512,14 +517,15 @@ AS
 BEGIN
 
 SELECT CASE WHEN EXISTS (
-		SELECT * 
-		FROM Suscripciones 
-			INNER JOIN Usuarios 
-			ON Suscripciones.DNI = Usuarios.DNI
-		WHERE Usuarios.DNI = @pDni AND
-				Usuarios.Clave = @pClave AND
-				Activo = 1
+		SELECT S.Activo, U.DNI, U.Clave
+		FROM Suscripciones AS S 
+		     INNER JOIN Usuarios AS U 
+		     ON S.DNI = U.DNI
+		WHERE U.DNI = @pDni AND
+		      U.Clave = @pClave AND
+	  	      Activo = 1
 			)
-THEN 1 ELSE 0 END As LoginCorrecto
+	THEN 1 ELSE 0 
+	END As LoginCorrecto
 
 END
