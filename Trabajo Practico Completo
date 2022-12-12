@@ -5,19 +5,16 @@ CREATE TABLE Sucursales (
 	Ubicacion VARCHAR(20)
 );
 
-
 CREATE TABLE Salas (
 	ID_Sala INT NOT NULL,
 	ID_Sucursal INT FOREIGN KEY REFERENCES Sucursales(ID_Sucursal),
 	CONSTRAINT PK_Sala PRIMARY KEY (ID_Sala, ID_Sucursal)
 );
 
-
 CREATE TABLE Generos (
 	ID_Genero INT PRIMARY KEY NOT NULL,
 	Nombre VARCHAR(20)
 );
-
 
 CREATE TABLE Peliculas (
 	ID_Pelicula INT PRIMARY KEY NOT NULL,
@@ -26,7 +23,6 @@ CREATE TABLE Peliculas (
 	Subtitulos BIT,
 	APT BIT
 );
-
 
 CREATE TABLE Funciones (
 	ID_Funcion INT UNIQUE NOT NULL IDENTITY,
@@ -40,13 +36,11 @@ CREATE TABLE Funciones (
 	CONSTRAINT PK_Salas_Funciones PRIMARY KEY (ID_Pelicula, ID_Sala, ID_Sucursal, Fecha, Horario)
 );
 
-
 CREATE TABLE Usuarios (
 	DNI INT PRIMARY KEY NOT NULL,
 	Nombre VARCHAR(50),
 	Correo VARCHAR(50)
 );
-
 
 CREATE TABLE Butacas (
 	ID_Butaca int NOT NULL UNIQUE IDENTITY,
@@ -58,7 +52,6 @@ CREATE TABLE Butacas (
 	CONSTRAINT PK_Butaca PRIMARY KEY (ID_Sucursal, ID_Sala, Fila, Columna)
 );
 
-
 CREATE TABLE Entradas (
 	ID_Entrada INT NOT NULL UNIQUE IDENTITY,
 	ID_Butaca int FOREIGN KEY REFERENCES Butacas(ID_Butaca),
@@ -68,6 +61,9 @@ CREATE TABLE Entradas (
 	CONSTRAINT PK_Entrada PRIMARY KEY (ID_Butaca, ID_Funcion)
 );
 
+GO
+
+
 /* ------------------INSERCION DE DATOS---------------------------------*/
 
 INSERT INTO Sucursales
@@ -75,12 +71,10 @@ VALUES (1, 'Rosario'),
        (2, 'Cordoba'),
        (3, 'La Plata')
 
-
 INSERT INTO Salas
 VALUES (11, 1),(12, 1),(13, 1),
        (21, 2),(22, 2),(23, 2),
        (31, 3),(32, 3),(33, 3)
-
 
 INSERT INTO Butacas (ID_Sala, ID_Sucursal, Fila, Columna)
 VALUES  (11, 1, 1, 'a'), (11, 1, 2, 'a'), (11, 1, 3, 'a'), (11, 1, 4, 'a'), (11, 1, 5, 'a'), (11, 1, 1, 'b'),
@@ -114,7 +108,6 @@ VALUES  (11, 1, 1, 'a'), (11, 1, 2, 'a'), (11, 1, 3, 'a'), (11, 1, 4, 'a'), (11,
 		(33, 3, 4, 'b'), (33, 3, 5, 'b'), (33, 3, 1, 'c'), (33, 3, 2, 'c'), (33, 3, 3, 'c'), (33, 3, 4, 'c'),
 		(33, 3, 5, 'c'), (33, 3, 1, 'd'), (33, 3, 2, 'd'), (33, 3, 3, 'd'), (33, 3, 4, 'd'), (33, 3, 5, 'd')
 
-
 INSERT INTO Generos
 VALUES (1, 'Ciencia ficcion'),
        (2, 'Animado'),
@@ -123,7 +116,6 @@ VALUES (1, 'Ciencia ficcion'),
        (5, 'Terror'),
        (6, 'Romance'),
        (7, 'Comedia')
-
 
 INSERT INTO Peliculas
 VALUES (3412, 1, 'The Avengers', 1, 1),
@@ -138,8 +130,6 @@ VALUES (3412, 1, 'The Avengers', 1, 1),
        (5012, 7, 'Son como niños 2', 1, 0),
        (4390, 2, 'Dragon Ball super Broly', 1, 1),
        (1001, 3, 'Parasite', 1, 0)
-
-
 
 INSERT INTO Funciones (ID_Pelicula, ID_Sala, ID_Sucursal, Fecha, Horario)
 VALUES (3101, 13, 1, '2022/10/24', '15:30:00'),
@@ -172,7 +162,6 @@ VALUES (3101, 13, 1, '2022/10/24', '15:30:00'),
        (3412, 12, 1, '2022/10/26', '15:15:00'), 
        (9458, 13, 1, '2022/10/27', '18:45:00') 
 
-
 INSERT INTO Usuarios
 VALUES (12235012, 'Robert Downey Jr.', 'ironman@gmail.com'),
        (233451, 'Mirta Legrand', 'lamirta@hotmail.com'),
@@ -181,7 +170,6 @@ VALUES (12235012, 'Robert Downey Jr.', 'ironman@gmail.com'),
        (178125, 'Jesus de Nazareth', 'Jisus123@hotmail.com'),
        (50123300, 'Edgar Alan Poe', 'alanpoe21@gmail.com'),
        (25688911, 'Dwayne Johnson', 'therock144@gmail.com')
-
 
 INSERT INTO Entradas (ID_Butaca, ID_Funcion, DNI, Precio)
 VALUES (47, 1, 178125, 570),
@@ -203,6 +191,9 @@ VALUES (47, 1, 178125, 570),
        (88, 5, 25688911, 440),
        (81, 5, 44721345, 640),
        (61, 25, 25688911, 450)
+       
+GO
+
 
 /* -----------------QUERIES INICIALES-------------------------------*/
 
@@ -280,10 +271,9 @@ from Butacas as B
 	inner join Funciones as F
 	on B.ID_Sala = F.ID_Sala
 where B.ID_Butaca not in ( select ID_Butaca 
-						   from Entradas
-						   where ID_Funcion = 8) and 
-						   F.ID_Funcion = 8
-
+			   from Entradas
+			   where ID_Funcion = 8) and 
+			   F.ID_Funcion = 8
 
 -- Ejercicio H
 /* ¿Cuantas peliculas por genero que estan o
@@ -295,102 +285,94 @@ where P.ID_Genero = G.ID_Genero
 group by G.Nombre
 order by Recuento desc
 
+GO
+
+
 /* --------------------ACTUALIZACION PRECIOS-------------------------------------*/
 
 -- Quitar de la tabla "Entrada" la columna "Precio".
 
 ALTER TABLE Entradas DROP CONSTRAINT DF__Entradas__Precio__3C69FB99;
+GO
 ALTER TABLE Entradas DROP COLUMN Precio;
+GO
 ALTER TABLE Peliculas ADD Precio MONEY NOT NULL DEFAULT 0;
-
+GO
 
 -- Agregando precio a las peliculas por  tipo de genero
 
 UPDATE Peliculas SET Precio=100 where ID_Genero in (2, 4, 6);
 UPDATE Peliculas SET Precio=250.50 where ID_Genero in (1, 3, 5, 7);
+GO
 
 
 /* ---------------------QUERIES ESTADISTICAS-------------------------------*/
 
--- a) Determine el total recaudado por funcion.
+/*  a) Determine el total recaudado por funcion.
 
-/* 
-    Selecciona la interseccion de las Entrada, Las funciones y las peliculas 
-    agrupadas por cada funcion y suma el total vendido para cada funcion
-*/
+	Selecciona la interseccion de las Entrada, Las funciones y las peliculas 
+	agrupadas por cada funcion y suma el total vendido para cada funcion  */
 
 select F.ID_Funcion, sum(P.Precio) as "Total recaudado por funcion" 
 from Funciones as F
-	 inner join Peliculas as P
-	 on F.ID_Pelicula = P.ID_Pelicula 
-	 inner join Entradas as E
-	 on F.ID_Funcion = E.ID_Funcion
+	inner join Peliculas as P
+		on F.ID_Pelicula = P.ID_Pelicula 
+	inner join Entradas as E
+		on F.ID_Funcion = E.ID_Funcion
 group by F.ID_Funcion 
 order by F.ID_Funcion;
 
 
+/* b) Determine el promedio recaudado por funcion para cada pelicula.
 
-/* b) Determine el promedio recaudado por funcion para cada pelicula. 
-   Es decir, si la pelicula Argentina, 1985 tuvo dos funciones, y en una 
-   recaudo 1000 pesos, y en la otra recaudo 3000 pesos, el promedio recaudado
-   por funcion para esta pelicula es 2000 pesos.
-*/
-
-/* 
-	Selecciona la interseccion de las funciones, las peliculas y las entradas agrupadas por funcion y suma el total
-   recaudado por cada funcion.
-   Luego se selecciona el resultado anterior agrupado por pelicula y se calcula el promedio
-*/
+	   Selecciona la interseccion de las funciones, las peliculas y
+	   las entradas agrupadas por funcion y suma el total recaudado por cada funcion.
+   	   Luego se selecciona el resultado anterior agrupado por pelicula y se calcula el promedio  */
 
 select ID_Pelicula, avg(Total) as "Promedio por funcion"
 from Funciones as M
 	 inner join ( select F.ID_Funcion, sum(P.Precio) as Total 
-			  from Funciones as F
-				   inner join Peliculas as P
-				   on F.ID_Pelicula = P.ID_Pelicula 
-				   inner join Entradas as E
+		      from Funciones as F
+		 	   inner join Peliculas as P
+		 		   on F.ID_Pelicula = P.ID_Pelicula 
+			   inner join Entradas as E
 				   on F.ID_Funcion = E.Id_Funcion
-			  group by F.ID_Funcion
+	   	      group by F.ID_Funcion
 		     ) as total_by_func 
-			on M.ID_Funcion = total_by_func.ID_Funcion 
-	  	        group by ID_Pelicula;
-
+	 	on M.ID_Funcion = total_by_func.ID_Funcion 
+group by ID_Pelicula;
 
 
 /* c) Determine el porcentaje de entradas vendidas por funcion, y muestre pelicula, sucursal, 
       hora y dia, solo para aquellas en las que se vendio menos del 50%.
-*/
+      
+	   Se selecciona y agrupan la interseccion entre todas las entradas y funciones agrupados por funcion,
+	   y se calcula el porcentaje de butacas ocupadas.
+	   Luego se selecciona el resultado anterior y se muestra solo las funciones con menos del 50% de ocupacion  */
 
-/* 
-   Se selecciona y agrupan la interseccion entre todas las entradas y funciones agrupados por funcion,
-   y se calcula el porcentaje de butacas ocupadas.
-   Luego se selecciona el resultado anterior y se muestra solo las funciones con menos del 50% de ocupacion
-*/
-
-with t_Porcentaje as (
-		  select F.ID_Funcion, P.Nombre, F.ID_Sucursal, F.ID_Sala, Fecha, Horario,
-			 count(E.ID_Entrada) * 100 / (select count(ID_Butaca)
-						  from Butacas
-						  where ID_Sala = F.ID_Sala) as Porcentaje
-		  from Entradas as E 
-			   inner join Funciones as F 
-			   on F.ID_Funcion = E.ID_Funcion, Peliculas as P
-		  where P.ID_Pelicula = F.ID_Pelicula
-		  group by F.ID_Funcion, P.Nombre, F.ID_Sucursal, F.ID_Sala, Fecha, Horario
-		 )
-	select * 
-	from t_Porcentaje 
-	where t_Porcentaje.Porcentaje < 50;
-
+with t_Porcentaje 
+as (
+    select F.ID_Funcion, P.Nombre, F.ID_Sucursal, F.ID_Sala, Fecha, Horario,
+	   count(E.ID_Entrada) * 100 / (select count(ID_Butaca)
+				        from Butacas
+				        where ID_Sala = F.ID_Sala) as Porcentaje
+    from Entradas as E 
+    	inner join Funciones as F 
+		on F.ID_Funcion = E.ID_Funcion, Peliculas as P
+    where P.ID_Pelicula = F.ID_Pelicula
+    group by F.ID_Funcion, P.Nombre, F.ID_Sucursal, F.ID_Sala, Fecha, Horario
+    )
+    
+select * 
+from t_Porcentaje 
+where t_Porcentaje.Porcentaje < 50;
 
 
--- d) Determine, para cada pelicula, cual fue la funcion que mas recaudo.
-
-/* 
-   Se selecciona la interseccion entre las funciones, las peliculas y las entradas.
-   Luego se agrupan por funcion obteniendo el recaudo total de cada funcion.
-   Finalmente selecciona la funcion de mayor recauso para cada pelicula.
-*/
+/* d) Determine, para cada pelicula, cual fue la funcion que mas recaudo.
+ 
+	   Se selecciona la interseccion entre las funciones, las peliculas y las entradas.
+	   Luego se agrupan por funcion obteniendo el recaudo total de cada funcion.
+	   Finalmente selecciona la funcion de mayor recauso para cada pelicula.  */
 
 select F.ID_Funcion, P.ID_Pelicula, P.Nombre, P.Precio
 into S
@@ -400,13 +382,11 @@ inner join Funciones as F
 inner join Peliculas as P
 	on P.ID_Pelicula = F.ID_Pelicula;
 
-
 select ID_Funcion, ID_Pelicula, Nombre, sum(Precio) as Recaudo
 into M
 from S
 group by ID_Pelicula, Nombre, ID_Funcion
 order by Recaudo desc 
-
 
 select ID_Funcion, Nombre, Recaudo
 from M as M1
@@ -414,6 +394,9 @@ where Recaudo = ( select max(M2.Recaudo)
 		  from M as M2 
 		  where M1.Nombre = M2.Nombre )
 order by Recaudo desc
+
+GO
+
 
 
 
@@ -450,18 +433,25 @@ CREATE TABLE Pagos (
     CONSTRAINT PK_Pagos PRIMARY KEY (ID_Pago),
     CONSTRAINT FK_Pago_Suscripciones FOREIGN KEY (DNI, ID_Plan) REFERENCES Suscripciones,
 );
+
+GO
+ 
  
 /* -----------------ACTUALIZACIONES---------------------------------*/
 
  --Agregar propiedad "Premium" para saber si la pelicula pertenece al plan premium
 
 ALTER TABLE Peliculas ADD Premium BIT NOT NULL DEFAULT 0
+GO
 
 UPDATE Peliculas SET Premium = 1 WHERE ID_Pelicula IN (1001, 4390, 9110, 4578, 9458)
+GO
 
---Agregar contrasenia por defecto a los usuarios
+--Agregar contraseña por defecto a los usuarios
 
 ALTER TABLE Usuarios ADD Clave VARCHAR(10) NOT NULL DEFAULT '123456'
+GO
+
 
 /* -------------------INSERCION DE NUEVOS DATOS-------------------------------------*/
 
@@ -490,9 +480,14 @@ VALUES (50123300, '2022/10/29', 1),
 	   (44721345, '2022/09/12', 3),
 	   (4733901, '2022/10/10', 1)
 
+GO
+
+
 /* ----------------PROCEDURE EJERCICIOS 3 Y 4--------------------------------*/
 
--- Procedure del ejercicio 3
+/* Suponga que se desea verificar mensualmente si los planes de cada uno de los usuarios están al día con los pagos y,
+   en función de eso, actualizar el plan como activo o inactivo. Cree el procedimiento almacenado correspondiente,
+   y proponga los criterios a tener en cuenta para pasar un plan de activo a inactivo. */
 
 CREATE PROCEDURE DishabilitarCuentasConDeudas
 AS   
@@ -508,7 +503,12 @@ BEGIN
 			  END
 END
 
--- Procedure del ejercicio 4
+GO
+
+
+/* Cree un procedimiento almacenado que reciba como parámetros un usuario y una contraseña, 
+   y devuelva 1 si el login es correcto (es decir, coincide usuario, contraseña, y el plan está activo)
+   y 0 en cualquier otro caso. */
 	   
 CREATE PROCEDURE LoginUsuario
 @pDni int,
@@ -529,3 +529,6 @@ SELECT CASE WHEN EXISTS (
 	END As LoginCorrecto
 
 END
+
+GO
+
